@@ -1,0 +1,6 @@
+[package]
+name = "day5_string_intern_elves"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
