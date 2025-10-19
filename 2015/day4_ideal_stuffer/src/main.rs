@@ -15,8 +15,20 @@ fn dxex1(str: &str) -> i32 {
     }
 }
 fn dxex2(str: &str) -> i32 {
-    0
+    let mut suffix = 0;
+    loop {
+        let s = str.to_owned();
+        let data = s + &suffix.to_string();
+        let digest = md5::compute(data);
+        // println!("{}: {:?}", &suffix, &digest);
+        let digest = format!("{:?}", digest);
+        if digest.starts_with("000000") {
+            return suffix;
+        }
+        suffix += 1;
+    }
 }
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -37,6 +49,6 @@ mod tests {
 }
 fn main() {
     let data = "iwrupvqb";
-    println!("part 1 = {}", dxex1(&data));
+    // println!("part 1 = {}", dxex1(&data));
     println!("part 2 = {}", dxex2(&data));
 }
