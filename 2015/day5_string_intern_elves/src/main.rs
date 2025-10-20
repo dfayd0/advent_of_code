@@ -1,3 +1,5 @@
+use std::arch::x86_64::_CMP_FALSE_OQ;
+
 fn has_vowels(target: &str, nb: u8) -> bool {
     let mut count = 0;
     let vowels = "aeiou";
@@ -11,8 +13,37 @@ fn has_vowels(target: &str, nb: u8) -> bool {
     }
     false
 }
+fn twice_in_a_row(target: &str) -> bool {
+    if target.len() < 2 {
+        return false;
+    }
+    let mut prev = target.chars().nth(0).unwrap();
+    for c in target.chars().skip(1) {
+        if c == prev {
+            return true;
+        }
+        prev = c;
+    }
+    false
+}
+fn forbidden(target: &str) -> bool {
+    if target.contains("ab")
+        || target.contains("cd")
+        || target.contains("pq")
+        || target.contains("xy")
+    {
+        return false;
+    }
+    true
+}
 fn dxex1(str: &str) -> i32 {
-    0
+    let mut count = 0;
+    for string in str.split("\n") {
+        if has_vowels(string, 3) && twice_in_a_row(string) && forbidden(string) {
+            count += 1;
+        }
+    }
+    count
 }
 fn dxex2(str: &str) -> i32 {
     0
